@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="file:///C:/Users/Bruno/Documents/GitHub/jquery-browser-fingerprint/src/md5.js"></script>
+	<script type="text/javascript" src="file:///C:/Users/Bruno/Documents/GitHub/jquery-browser-fingerprint/src/
+	jquery.browser-fingerprint-1.1.min.js"></script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+			var fingerprint = $.fingerprint();
+			$("#output").html(fingerprint);
+		});
+		
+	</script>
+</head>
+<body style="background-color:#241F1F;">
+<div id="global" style="width:700px; margin:0 auto;background-color:white;	">
+	<h1>FingerPrint</h1>
+	<div id="output"></div>
+
+</div>
+
+</body>
+</html>
