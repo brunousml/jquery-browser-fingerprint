@@ -3,8 +3,8 @@
 <head>
 	<title>FingerPrint - Teste</title>
 	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-	<script src="https://raw.githubusercontent.com/brunousml/jquery-browser-fingerprint/master/src/md5.js"></script>
-	<script src="https://raw.githubusercontent.com/brunousml/jquery-browser-fingerprint/master/src/jquery.browser-fingerprint-1.1.min.js"></script>
+	<script src="http://vaibelem.com.br/static/Fingerprint/src/md5.js"></script>
+	<script src="http://vaibelem.com.br/static/Fingerprint/src/jquery.browser-fingerprint-1.1.js"></script>
 	<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
 
 	<script type="text/javascript">
@@ -14,9 +14,8 @@
 		$(document).ready(function(){
 		    fingerprint = $.fingerprint();
 		    firebase = new Firebase("https://liveclasstasting.firebaseio.com/");	
-			
+			$("#output").html(fingerprint);	
 			firebase.child(fingerprint).once('value', function(snap) {
-		       console.log('id finded: ', snap.val());
 		       validate(snap.val());
 		    });        
 		});
@@ -24,7 +23,8 @@
 		var validate = function(snap){
 			if( ! snap ){
 				saveId();
-				$("#liveclass").show();	
+				$("#liveclass").show();
+				
 			}else{
 				$("#signup").show();
 			}
@@ -40,7 +40,11 @@
 	
 	<div id="global" style="width:700px; margin:0 auto;background-color:white;	">
 		
-		<h1>Fingerprint Browser</h1>
+		<h1 style="text-align: center;padding: 20px;">Fingerprint Browser</h1>
+		
+		<div style="background-color: #00894F;color: #F9F6F3;height: 31px;margin-bottom:40px;">
+			<h2>Your ID: <span id="output"></span></h2>
+		</div>
 
 		<div id="liveclass" style="display:none">
 			<img src="liveclassdescomplica.png" width="700">
