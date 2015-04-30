@@ -2,47 +2,55 @@
 <html>
 <head>
 	<title>FingerPrint - Teste</title>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="/jquery-browser-fingerprint/src/md5.js"></script>
-	<script type="text/javascript" src="/jquery-browser-fingerprint/src/jquery.browser-fingerprint-1.1.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="https://raw.githubusercontent.com/brunousml/jquery-browser-fingerprint/master/src/md5.js"></script>
+	<script src="https://raw.githubusercontent.com/brunousml/jquery-browser-fingerprint/master/src/jquery.browser-fingerprint-1.1.min.js"></script>
 	<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
 
 	<script type="text/javascript">
 		var firebase = undefined;
-		$(document).ready(function(){
-			//var Firebase = new Firebase("https://fingerprint.firebaseio.com/fingerprint");
-		    var fingerprint = $.fingerprint();
-		    firebase = new Firebase("https://fingerprint.firebaseio.com/id/");	
-			
-			firebase.push({id: fingerprint});
+		var fingerprint = undefined;
 
-			new Firebase("https://examples-sql-queries.firebaseio.com/id")
-		    .startAt(fingerprint)
-		    .endAt(fingerprint)
-		    .once('value', function(snap) {
-		       console.log('accounts matching email address', snap.val())
+		$(document).ready(function(){
+		    fingerprint = $.fingerprint();
+		    firebase = new Firebase("https://liveclasstasting.firebaseio.com/");	
+			
+			firebase.child(fingerprint).once('value', function(snap) {
+		       console.log('id finded: ', snap.val());
+		       validate(snap.val());
 		    });        
-	        
-	        firebase.once('value', function(snap) {
-			   validate(snap.val());
-			});
 		});
 
 		var validate = function(snap){
 			if( ! snap ){
-				firebase.push({id: fingerprint});
-				$("#output").html("Enjoy tasting.");	
+				saveId();
+				$("#liveclass").show();	
 			}else{
-				$("#output").html("Sign Up, please.");
+				$("#signup").show();
 			}
+		}
+
+		var saveId = function(){
+			firebase.child(fingerprint).push('1000');
 		}
 	</script>
 </head>
-<body style="background-color:#241F1F;">
-	<div id="global" style="width:700px; margin:0 auto;background-color:white;	">
-		<h1>FingerPrint</h1>
-		<div id="output"></div>
 
+<body style="background-color:#241F1F;">
+	
+	<div id="global" style="width:700px; margin:0 auto;background-color:white;	">
+		
+		<h1>Fingerprint Browser</h1>
+
+		<div id="liveclass" style="display:none">
+			<img src="liveclassdescomplica.png" width="700">
+		</div>
+		
+		<div id="signup" style="display:none">
+			<img src="logindescomplica.png" width="700">
+		</div>
+	
 	</div>
+
 </body>
 </html>
